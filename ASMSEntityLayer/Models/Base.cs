@@ -10,7 +10,7 @@ namespace ASMSEntityLayer.Models
 {
     public class Base<T> : IBase
     {
-        [Key]
+        [Key] //primary key
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public T Id { get; set; }

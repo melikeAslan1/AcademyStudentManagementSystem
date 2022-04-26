@@ -13,7 +13,6 @@ namespace ASMSEntityLayer.Models
     public class UsersAddress:Base<int>
     {
 
-
         public string UserId { get; set; }  //AspNetUsers ilişki
 
         [Required]

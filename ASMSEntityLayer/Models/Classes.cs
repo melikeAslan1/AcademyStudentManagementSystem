@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ASMSEntityLayer.Models
 {
     [Table("Classes")]
-    class Classes: Base<int>
+    public class Classes : Base<int>
     {
 
         [Required]

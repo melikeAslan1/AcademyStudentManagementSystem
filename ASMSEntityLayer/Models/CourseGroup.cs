@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace ASMSEntityLayer.Models
 {
     [Table("CourseGroups")]
-    class CourseGroup: Base<int>
+    public class CourseGroup : Base<int>
     {
         public int ClassId { get; set; }
         //Öğretmen id gelecek
 
         public int CourseId { get; set; }
-        
-        
+
+
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
