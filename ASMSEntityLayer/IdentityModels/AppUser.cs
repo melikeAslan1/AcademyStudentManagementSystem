@@ -6,18 +6,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ASMSEntityLayer.Models;
 
 namespace ASMSEntityLayer.IdentityModels
 {
-    class AppUser:IdentityUser
+    public class AppUser : IdentityUser, IBase
     {
         [DataType(DataType.DateTime)]
-        public DateTime RegisterDate { get; set; }=DateTime.Now;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
 
-
-        [Required(ErrorMessage ="İsim Gereklidir!")]
-        [StringLength(50, MinimumLength =2, ErrorMessage ="İsminiz en az 2 en çok 50 karakter olmalıdır!")]
+        [Required(ErrorMessage = "İsim Gereklidir!")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "İsminiz en az 2 en çok 50 karakter olmalıdır!")]
         public string Name { get; set; }
 
 
@@ -29,6 +29,7 @@ namespace ASMSEntityLayer.IdentityModels
 
         [StringLength(11, MinimumLength = 11, ErrorMessage = "TC 11 haneli olmalıdır!")]
         public string TCNumber { get; set; }
+
         public string Picture { get; set; }
 
 
@@ -41,5 +42,13 @@ namespace ASMSEntityLayer.IdentityModels
         [Required(ErrorMessage = "Cinsiyet Gereklidir!")]
         public Genders Gender { get; set; } //Enumarable
 
+        public bool IsDeleted { get; set; } = false;
+       
+        //İlişkiler
+    
+    
+        public virtual ICollection<UsersAddress> UsersAddresses { get; set; }
+    
     }
+    
 }
