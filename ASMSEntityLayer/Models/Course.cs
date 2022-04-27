@@ -16,6 +16,9 @@ namespace ASMSEntityLayer.Models
 
         public string CourseName { get; set; }
 
+        //ilişkinin karşılığı
+        public virtual ICollection<CourseGroup> CourseGroups { get; set; }
+
 
 
 

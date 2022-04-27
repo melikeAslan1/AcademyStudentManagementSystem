@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ASMSEntityLayer.Models
 {
     [Table("Classes")]
-    public class Classes : Base<int>
+    public class Class : Base<int>
     {
 
         [Required]
@@ -18,6 +18,11 @@ namespace ASMSEntityLayer.Models
         public string ClassName { get; set; }
         //Bu enum olacak.
         public ClassLocation ClassFloor { get; set; }  //Kat 1 gibi ??
+
+        //ilişkinin karşılığı
+        public virtual ICollection<CourseGroup> CourseGroups { get; set; }
+
+
 
 
 
