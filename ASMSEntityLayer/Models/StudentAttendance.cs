@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ASMSEntityLayer.Models
 {
     [Table("StudentAttendances")]
-    public class StudentAttendance
+    public class StudentAttendance:Base<int>
     {
         public int StudentsCourseGroupId { get; set; }
 

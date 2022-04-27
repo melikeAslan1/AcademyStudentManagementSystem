@@ -1,5 +1,9 @@
+using ASMSDataAccessLayer;
+using ASMSEntityLayer.IdentityModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +26,34 @@ namespace ASMSPresentationLayer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Aspnet Core'un ConnectionString baðlantýsý yapabilmesi için yapýlandýrma servislerine dbcontext nesnesini eklmesi gerekir
+            services.AddDbContext<MyContext>(options =>
+            
+            options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
+
+
             services.AddControllersWithViews();
+            services.AddRazorPages(); //razor sayfalarý için
+            services.AddMvc();
+            services.AddSession(options => options.IdleTimeout = TimeSpan.FromSeconds(20));
+            //oturum zamaný
+
+            //*********************************************************//
+            services.AddIdentity<AppUser, AppRole>(options =>
+
+                {
+                    options.User.RequireUniqueEmail = true;
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireDigit = false;
+                    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_@.";
+
+
+
+                }).AddDefaultTokenProviders().AddEntityFrameworkStores<MyContext>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,11 +67,14 @@ namespace ASMSPresentationLayer
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();
+            app.UseStaticFiles();  //wwwroot klasörünün eriþimi içindir.
 
-            app.UseRouting();
+            app.UseRouting(); //controller/Action/Id
+            app.UseSession(); //Oturum mekanizmasýnýn kullanýlmasý için.
+            app.UseAuthorization();  //[Authorize] attribute için
+            app.UseAuthentication();  // Login Logout iþlemlerinin gerektirdiði oturum iþleyiþlerini kullanabilmek için. 
 
-            app.UseAuthorization();
+            // MVC ile ayný kod bloðu endpoint'in mekanizmasýnýn nasýl olacaðý belirleniyor.
 
             app.UseEndpoints(endpoints =>
             {

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace ASMSEntityLayer.Models
 {
     [Table("CourseGroups")]
+  //[index(nameof(PortalCode), IsUnique=true)] Seni Context class ında OnModelCreating metodunu ezerek yazacağız.
     public class CourseGroup : Base<int>
     {
         public int ClassId { get; set; }
