@@ -27,7 +27,6 @@ namespace ASMSEntityLayer.Models
         public virtual Student Student { get; set; }
 
         [ForeignKey("CourseGroupId")]
-
         public virtual CourseGroup CourseGroup { get; set; }
 
 

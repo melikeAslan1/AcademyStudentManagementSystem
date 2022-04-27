@@ -25,8 +25,10 @@ namespace ASMSPresentationLayer
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
+        //ConfigureServices : Kullanýlacak servislerin belirtildiði, dependecy injection iþlemlerinin yapýldýðý metottur.
         {
-            //Aspnet Core'un ConnectionString baðlantýsý yapabilmesi için yapýlandýrma servislerine dbcontext nesnesini eklmesi gerekir
+            //Aspnet Core'un ConnectionString baðlantýsý yapabilmesi için yapýlandýrma servislerine
+            //dbcontext nesnesini eklmesi gerekir
             services.AddDbContext<MyContext>(options =>
             
             options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
@@ -59,6 +61,7 @@ namespace ASMSPresentationLayer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //Configure : HTTP isteklerinin izleyeceði yolunun yapýlandýrýldýðý sýnýftýr.
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

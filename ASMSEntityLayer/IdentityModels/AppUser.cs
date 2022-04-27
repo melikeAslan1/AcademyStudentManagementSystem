@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ASMSEntityLayer.Models;
 
+
 namespace ASMSEntityLayer.IdentityModels
 {
     public class AppUser : IdentityUser, IBase
@@ -26,7 +27,6 @@ namespace ASMSEntityLayer.IdentityModels
         public string Surname { get; set; }
 
 
-
         [StringLength(11, MinimumLength = 11, ErrorMessage = "TC 11 haneli olmalıdır!")]
         public string TCNumber { get; set; }
 
@@ -41,7 +41,6 @@ namespace ASMSEntityLayer.IdentityModels
 
         [Required(ErrorMessage = "Cinsiyet Gereklidir!")]
         public Genders Gender { get; set; } //Enumarable
-
         public bool IsDeleted { get; set; } = false;
        
         //İlişkiler
@@ -52,10 +51,6 @@ namespace ASMSEntityLayer.IdentityModels
         public virtual ICollection<Teacher> Teachers { get; set; }
 
         public virtual ICollection<Student> Students { get; set; }
-
-
-
-
 
 
     }
