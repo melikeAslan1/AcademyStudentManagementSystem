@@ -21,7 +21,6 @@ namespace ASMSEntityLayer.Models
         [Display(Name = "Oluşturulma Tarihi")]
         public DateTime CreatedDate { get; set; }
 
-
         public bool IsDeleted { get; set; }
     }
 }
