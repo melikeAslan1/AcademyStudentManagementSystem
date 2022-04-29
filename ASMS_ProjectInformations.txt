@@ -4,3 +4,6 @@ Microsoft.EntityFrameworkCore.SqlServer 5.0.14
 Microsoft.EntityFrameworkCore.Tools 5.0.14
 Microsoft.EntityFrameworkCore.Design 5.0.14
 Microsoft.AspnetCore.Identity.EntityFrameworkCore 5.0.14
+-------------
+AutoMapper 9.0.0
+AutoMapper.Extension.Microsoft.DependencyInjection 7.0.0
