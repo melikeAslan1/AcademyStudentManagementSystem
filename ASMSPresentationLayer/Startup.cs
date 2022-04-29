@@ -27,7 +27,7 @@ namespace ASMSPresentationLayer
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        //ConfigureServices : Kullanýlacak servislerin belirtildiði, dependecy injection iþlemlerinin yapýldýðý metottur.
+        //ConfigureServices : Kullanýlacak servislerin belirtildiði,eklendiði dependecy injection iþlemlerinin yapýldýðý metottur.
         {
             //Aspnet Core'un ConnectionString baðlantýsý yapabilmesi için yapýlandýrma servislerine
             //dbcontext nesnesini eklmesi gerekir
@@ -36,9 +36,9 @@ namespace ASMSPresentationLayer
             options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
 
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews();  //Projenin MVC projesi olduðunu belirtiyoruz.
             services.AddRazorPages(); //razor sayfalarý için
-            services.AddMvc();
+            services.AddMvc();  //MVC özelliði kullanmak için eklendi.
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromSeconds(20));
             //oturum zamaný
 
@@ -66,7 +66,8 @@ namespace ASMSPresentationLayer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) //servis ayarlarýnýn yapýldýðý yer
+
         {
             //Configure : HTTP isteklerinin izleyeceði yolunun yapýlandýrýldýðý sýnýftýr.
             if (env.IsDevelopment())
@@ -77,12 +78,15 @@ namespace ASMSPresentationLayer
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();  //wwwroot klasörünün eriþimi içindir.
+            app.UseStaticFiles();  //wwwroot klasörünün eriþimi içindir. Javascript, css ve resimler gibi statik dosyalarý kullanmak için
 
             app.UseRouting(); //controller/Action/Id
             app.UseSession(); //Oturum mekanizmasýnýn kullanýlmasý için.
             app.UseAuthorization();  //[Authorize] attribute için
             app.UseAuthentication();  // Login Logout iþlemlerinin gerektirdiði oturum iþleyiþlerini kullanabilmek için. 
+
+            // app.UseStatusCodePages();
+            // bu metot bizim projemiz içerisinde yer almayan bir view a gidilmek istendiðinde otomatik olarak 404 sayfasýný kullanýcýya gösteren metottur.
 
             // MVC ile ayný kod bloðu endpoint'in mekanizmasýnýn nasýl olacaðý belirleniyor.
 
@@ -92,6 +96,7 @@ namespace ASMSPresentationLayer
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            //yukarýdaki 6 satýr projemiz çalýþtýrýldýðýnda HomeController da yer alan Index.cshtml sayfasýna yönlendirme iþlemini gerçekleþtirir.
         }
     }
 }

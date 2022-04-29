@@ -15,11 +15,8 @@ namespace ASMSBusinessLayer.ContractsBLL
         IResult Delete(CityVM city);
         IResult Update(CityVM city);
         IDataResult<CityVM> GetById(int cityId);
-        IDataResult<List<CityVM>> GetAll();
+        IDataResult<ICollection<CityVM>> GetAll();
         IDataResult<CityVM> GetFirstOrDefault();
 
-
-
-        
     }
 }
