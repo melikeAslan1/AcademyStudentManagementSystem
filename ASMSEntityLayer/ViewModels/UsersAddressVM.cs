@@ -34,12 +34,12 @@ namespace ASMSEntityLayer.ViewModels
 
         public  AppUser AppUser { get; set; } //VM de artık virtual yok kendisi var.
 
-        public  Neighbourhood Neighbourhood { get; set; } //include Entities
+        public  NeighbourhoodVM Neighbourhood { get; set; } //include Entities
 
 
         //TODO: ??? Aşağıdakilerle il ve ilçeye ulaşabilir miyim ?
-        public City City { get; set; }
-        public District District { get; set; }
+        public CityVM City { get; set; }
+        public DistrictVM District { get; set; }
 
     }
 }

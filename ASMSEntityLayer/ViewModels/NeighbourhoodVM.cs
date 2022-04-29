@@ -1,29 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASMSEntityLayer.Models
+namespace ASMSEntityLayer.ViewModels
 {
-    [Table("Neighbourhoods")]
-    public class Neighbourhood : Base<int>
+    public class NeighbourhoodVM
     {
+        public int Id { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public bool IsDeleted { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Mahalle adı en az 2 en çok 50 karakter aralığında olmalıdır!")]
         public string NeighbourhoodName { get; set; }
 
-
-        //İlişki ilçeyle
-
         public int DistrictId { get; set; }
 
-        [ForeignKey("DistrictId")]
-        public virtual District District { get; set; }
+        public  DistrictVM District { get; set; }
 
-        public virtual ICollection<UsersAddress> UsersAddresses { get; set; }
-
+        public ICollection<UsersAddressVM> UsersAddresses { get; set; }
     }
 }
