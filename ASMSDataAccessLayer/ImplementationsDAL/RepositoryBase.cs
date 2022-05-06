@@ -38,7 +38,6 @@ namespace ASMSDataAccessLayer.ImplementationsDAL
         {
             try
             {
-                bool result = false;
                 _myContext.Set<T>().Remove(entity);
                 return  _myContext.SaveChanges() > 0 ? true : false;
                 //bu kısım yeni değl diğer projede de vr.
