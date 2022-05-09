@@ -234,5 +234,75 @@ namespace ASMSPresentationLayer.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public IActionResult ConfirmResetPassword(string userId, string code)
+        {
+            if(string.IsNullOrEmpty(userId)
+                || string.IsNullOrEmpty(code)) {
+
+                ViewBag.ConfirmResetPasswordFailureMessage = "Beklenmedik bir hata oluştu!";
+             
+                return View();
+            }
+
+            ResetPasswordViewModel model = new ResetPasswordViewModel()
+            {
+                UserId = userId,
+                Code = code
+            };
+            return View(model);
+
+        }
+
+        [HttpPost]
+
+        public async Task<IActionResult> ConfirmResetPassword(ResetPasswordViewModel model)
+        {
+            try
+            {
+                if(!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                var user = await _userManager.FindByIdAsync(model.UserId);
+                if(user==null)
+                {
+                    //log mesajı yerleştir.
+                    //throw new Exception();
+                }
+                var tokenDecoded = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(model.Code));
+
+                var result = await _userManager.ResetPasswordAsync(user, tokenDecoded, model.NewPassword);
+
+                if(result.Succeeded)
+                {
+                    TempData["ConfirmResetPasswordSuccess"] = "Şifreniz başarıyla güncellenmiştir!";
+
+                    return RedirectToAction("Login", "Account", new { email = user.Email });
+                }
+                else
+                {
+
+                    ModelState.AddModelError("", "Şifrenizin değiştirilme işleminde beklenmedik bir hata oluştu! Tekrar deneyiniz!");
+                    return View(model);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                //ex loglanacak
+                ModelState.AddModelError("", "Beklenmedik bir hata oluştu! Tekrar deneyiniz!");
+                return View(model);
+            }
+
+
+
+        }
+
     }
 }

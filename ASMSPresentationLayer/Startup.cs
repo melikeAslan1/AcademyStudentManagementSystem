@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ASMSEntityLayer.Mappings;
+using ASMSBusinessLayer.EmailService;
 
 namespace ASMSPresentationLayer
 {
@@ -59,6 +60,10 @@ namespace ASMSPresentationLayer
 
             //Mapleme eklendi.
             services.AddAutoMapper(typeof(Maps));
+
+            services.AddScoped<IEmailSender, EmailSender>(); 
+
+
 
 
 
