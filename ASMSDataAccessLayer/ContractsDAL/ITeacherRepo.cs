@@ -9,5 +9,7 @@ namespace ASMSDataAccessLayer.ContractsDAL
 {
     public interface ITeacherRepo:IRepositoryBase<Teacher,string>
     {
+
+
     }
 }

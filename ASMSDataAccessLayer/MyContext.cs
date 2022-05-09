@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ASMSDataAccessLayer
 {
-    public class MyContext:IdentityDbContext<AppUser, AppRole, string>
+    public class MyContext:IdentityDbContext<AppUser, AppRole, string>  //burada entity deki class larımızın SQL ortamına aktarılmasını sağladık. yani sql deki tabloların oluşması sağlandı.
     {
         public MyContext(DbContextOptions<MyContext> options)
             :base(options)

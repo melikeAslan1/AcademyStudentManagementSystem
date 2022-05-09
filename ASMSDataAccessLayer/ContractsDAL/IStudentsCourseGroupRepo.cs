@@ -9,5 +9,9 @@ namespace ASMSDataAccessLayer.ContractsDAL
 {
     public interface IStudentsCourseGroupRepo:IRepositoryBase<StudentsCourseGroup,int>
     {
+
+
+
+
     }
 }

@@ -252,7 +252,6 @@ namespace ASMSPresentationLayer.Controllers
                 Code = code
             };
             return View(model);
-
         }
 
         [HttpPost]
