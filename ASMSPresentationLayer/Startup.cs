@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ASMSEntityLayer.Mappings;
 using ASMSBusinessLayer.EmailService;
+using ASMSBusinessLayer.ContractsBLL;
+using ASMSBusinessLayer.ImplementationsBLL;
 
 namespace ASMSPresentationLayer
 {
@@ -34,7 +36,7 @@ namespace ASMSPresentationLayer
             //dbcontext nesnesini eklmesi gerekir
             services.AddDbContext<MyContext>(options =>
             
-            options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")),ServiceLifetime.Scoped);
 
 
             services.AddControllersWithViews();  //Projenin MVC projesi olduðunu belirtiyoruz.
@@ -54,24 +56,21 @@ namespace ASMSPresentationLayer
                     options.Password.RequireDigit = false;
                     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_@.";
 
-
-
                 }).AddDefaultTokenProviders().AddEntityFrameworkStores<MyContext>();
 
             //Mapleme eklendi.
             services.AddAutoMapper(typeof(Maps));
 
-            services.AddScoped<IEmailSender, EmailSender>(); 
+            services.AddSingleton<IEmailSender, EmailSender>();
 
+            services.AddScoped<IStudentBusinessEngine, StudentBusinessEngine>();
 
-
-
-
+            services.AddScoped<ASMSDataAccessLayer.ContractsDAL.IUnitOfWork, ASMSDataAccessLayer.ImplementationsDAL.UnitOfWork>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) //servis ayarlarýnýn yapýldýðý yer
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<AppRole> roleManager) //servis ayarlarýnýn yapýldýðý yer
 
         {
             //Configure : HTTP isteklerinin izleyeceði yolunun yapýlandýrýldýðý sýnýftýr.
@@ -92,6 +91,11 @@ namespace ASMSPresentationLayer
 
             // app.UseStatusCodePages();
             // bu metot bizim projemiz içerisinde yer almayan bir view a gidilmek istendiðinde otomatik olarak 404 sayfasýný kullanýcýya gösteren metottur.
+
+            //rolleri oluþturacak static metot çaðrýldý.
+            CreateDefaultData.CreateData.Create(roleManager);
+
+
 
             // MVC ile ayný kod bloðu endpoint'in mekanizmasýnýn nasýl olacaðý belirleniyor.
 
