@@ -22,7 +22,9 @@ namespace ASMSPresentationLayer.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+
         private readonly RoleManager<AppRole> _roleManager;
+
         private readonly IEmailSender _emailSender;
         private readonly IStudentBusinessEngine _studentBusinessEngine;
 
@@ -35,11 +37,11 @@ namespace ASMSPresentationLayer.Controllers
             _studentBusinessEngine = studentBusinessEngine;
         }
 
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -47,15 +49,19 @@ namespace ASMSPresentationLayer.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(model);
+                    //return View(model);
+                    TempData["RegisterFailedMessage"] = "Veri girişlerini istenildiği gibi yapmadınız! Tekrar deneyiniz!";
+                    return RedirectToAction("Index", "Home");
                 }
 
                 //Aynı emailden tekrar kayıt olunmasın
                 var checkUserForEmail = await _userManager.FindByEmailAsync(model.Email);
                 if (checkUserForEmail != null)
                 {
-                    ModelState.AddModelError("", "Bu email ile zaten sisteme kayıt yapılmıştır!");
-                    return View(model);
+                    //ModelState.AddModelError("", "Bu email ile zaten sisteme kayıt yapılmıştır!");
+                    //return View(model);
+                    TempData["RegisterFailedMessage"] = "Beklenmedik bir sorun oldu. Üye kaydı başarısız tekrar deneyiniz!";
+                    return RedirectToAction("Index", "Home");
                 }
                 //user'ı oluşturalım
                 AppUser newUser = new AppUser()
@@ -69,7 +75,8 @@ namespace ASMSPresentationLayer.Controllers
                     model.BirthDate.Value : null,
                     Gender = model.Gender,
                     EmailConfirmed = true,
-                    UserName = model.Email
+                    UserName = model.Email,
+                    TCNumber=model.TCNumber
                 };
 
                 var result = await _userManager
@@ -102,13 +109,19 @@ namespace ASMSPresentationLayer.Controllers
                         Body = "Merhaba, Sisteme kaydınız gerçekleşmiştir...",
                         Contacts = new string[] { model.Email }
                     };
-                    return RedirectToAction("Login", "Account", new { email = model.Email });
+                    await _emailSender.SendMessage(emailToStudent);
+                    TempData["RegisterSuccessMessage"] = "Sisteme kaydınız başarıyla gerçekleşti!";
+
+                    return RedirectToAction("Index", "Home", new { email = model.Email });
 
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Beklenmedik bir sorun oldu. Üye kaydı başarısız tekrar deneyiniz!");
-                    return View(model);
+                    TempData["RegisterFailedMessage"] = "Beklenmedik bir sorun oldu. Üye kaydı başarısız tekrar deneyiniz!";
+                    return RedirectToAction("Index", "Home");
+                    
+                    //ModelState.AddModelError("", "Beklenmedik bir sorun oldu. Üye kaydı başarısız tekrar deneyiniz!");
+                    //return View(model);
                 }
 
             }
@@ -129,6 +142,7 @@ namespace ASMSPresentationLayer.Controllers
             {
                 Email = email
             };
+
             return View(model);
         }
 
@@ -283,12 +297,9 @@ namespace ASMSPresentationLayer.Controllers
                 }
                 else
                 {
-
                     ModelState.AddModelError("", "Şifrenizin değiştirilme işleminde beklenmedik bir hata oluştu! Tekrar deneyiniz!");
                     return View(model);
                 }
-
-
 
             }
             catch (Exception ex)

@@ -36,7 +36,7 @@ namespace ASMSPresentationLayer
             //dbcontext nesnesini eklmesi gerekir
             services.AddDbContext<MyContext>(options =>
             
-            options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")),ServiceLifetime.Scoped);
+            options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
 
 
             services.AddControllersWithViews();  //Projenin MVC projesi olduðunu belirtiyoruz.
@@ -52,6 +52,7 @@ namespace ASMSPresentationLayer
                     options.User.RequireUniqueEmail = true;
                     options.Password.RequiredLength = 6;
                     options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireDigit = false;
                     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_@.";

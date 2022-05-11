@@ -21,10 +21,10 @@ namespace ASMSDataAccessLayer.ImplementationsDAL
         {
             try
             {
-                bool result = false;
+                
                 _myContext.Set<T>().Add(entity);
-                result = _myContext.SaveChanges() > 0 ? true : false;
-                return result;
+                return _myContext.SaveChanges() > 0 ? true : false;
+               
                 //bu kısım yeni değl diğer projede de vr.
             }
             catch (Exception)
