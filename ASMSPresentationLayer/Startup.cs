@@ -87,8 +87,8 @@ namespace ASMSPresentationLayer
 
             app.UseRouting(); //controller/Action/Id
             app.UseSession(); //Oturum mekanizmasýnýn kullanýlmasý için.
-            app.UseAuthorization();  //[Authorize] attribute için
             app.UseAuthentication();  // Login Logout iþlemlerinin gerektirdiði oturum iþleyiþlerini kullanabilmek için. 
+            app.UseAuthorization();  //[Authorize] attribute için
 
             // app.UseStatusCodePages();
             // bu metot bizim projemiz içerisinde yer almayan bir view a gidilmek istendiðinde otomatik olarak 404 sayfasýný kullanýcýya gösteren metottur.
