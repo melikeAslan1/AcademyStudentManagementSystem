@@ -58,7 +58,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <body>
     <!-- mian-content -->
     <header class="index-banner" id="home">
-        <partial name="Partials/_HeaderPartial" />       
+        <partial name="Partials/_HeaderPartial" />    
+        <!--banner-->
+        <div class="banner_section_pages">
+
+
+        </div>
+        <!--//banner-->
     </header>
     <!-- //header -->
     <!--// banner-slider -->
@@ -255,6 +261,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- //js -->
 
     <script src="~/asmsTheme/js/bootstrap.js"></script>
+
+    @RenderSection("Scripts", required:false)
+    @*Asenkron hali de vardır.
+    @await RenderSectionAsync("Scripts", required:false)*@
 
 </body>
 

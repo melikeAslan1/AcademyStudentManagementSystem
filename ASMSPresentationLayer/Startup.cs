@@ -39,8 +39,8 @@ namespace ASMSPresentationLayer
             options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
 
 
-            services.AddControllersWithViews();  //Projenin MVC projesi olduðunu belirtiyoruz.
-            services.AddRazorPages(); //razor sayfalarý için
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();  //Proje çalýþýrken razor sayfalarýnda yapýlan deðiþiklikler anýnda 
+          
             services.AddMvc();  //MVC özelliði kullanmak için eklendi.
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromSeconds(20));
             //oturum zamaný
@@ -67,6 +67,8 @@ namespace ASMSPresentationLayer
             services.AddScoped<IStudentBusinessEngine, StudentBusinessEngine>();
 
             services.AddScoped<IUserAddressBusinessEngine, UserAddressBusinessEngine>();
+
+            services.AddScoped<ICityBusinessEngine, CityBusinessEngine>();
 
             services.AddScoped<ASMSDataAccessLayer.ContractsDAL.IUnitOfWork, ASMSDataAccessLayer.ImplementationsDAL.UnitOfWork>();
 
