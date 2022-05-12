@@ -7,3 +7,5 @@ Microsoft.AspnetCore.Identity.EntityFrameworkCore 5.0.14
 -------------
 AutoMapper 9.0.0
 AutoMapper.Extension.Microsoft.DependencyInjection 7.0.0
+
+Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation --> UI katmanında yapılan değişiklikleri hemen yansıtır.

@@ -26,10 +26,12 @@ namespace ASMSEntityLayer.ViewModels
         public int NeighbourhoodId { get; set; } //Mahalleyle ilişki
 
         [StringLength(500, ErrorMessage = "Adres detayı en az 2 en çok 500 karakter aralığında olabilir!")]
+        [Display(Name ="Adres Detayı")]
         public string AddressDetails { get; set; }
 
 
         [StringLength(5, MinimumLength = 5, ErrorMessage = "Posta kodu 5 karakter olmalıdır!")]
+        [Display(Name ="Posta Kodu")]
         public string PostCode { get; set; }  
 
         public  AppUser AppUser { get; set; } //VM de artık virtual yok kendisi var.

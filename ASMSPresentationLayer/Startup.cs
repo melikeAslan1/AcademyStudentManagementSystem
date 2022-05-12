@@ -66,6 +66,8 @@ namespace ASMSPresentationLayer
 
             services.AddScoped<IStudentBusinessEngine, StudentBusinessEngine>();
 
+            services.AddScoped<IUserAddressBusinessEngine, UserAddressBusinessEngine>();
+
             services.AddScoped<ASMSDataAccessLayer.ContractsDAL.IUnitOfWork, ASMSDataAccessLayer.ImplementationsDAL.UnitOfWork>();
 
         }
