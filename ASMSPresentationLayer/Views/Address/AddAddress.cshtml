@@ -46,7 +46,7 @@ border-radius:4px; padding:10px;">
             <div class="form-group">
                 <span class="text-danger" style="font-weight:bold;margin-right:3px;">*</span>
                 <label for="Neighbourhood" style="font-weight:bold">Mahalle</label>
-                <select id="NeighbourhoodSelect" name="Neighbourhood"
+                <select id="NeighbourhoodSelect" asp-for="NeighbourhoodId"
                         class="form-control"   style="padding:3px" required>
                     <option value="0" selected>***Mahalle Seçiniz***</option>
                 </select>
@@ -160,7 +160,9 @@ border-radius:4px; padding:10px;">
                                 .append($("<option />").val(this.id).text(this.neighbourhoodName));
 
                         });
-                        $btn.attr("disabled", false); // buton aktif olsun
+                        //var $btn = $("#btnAddAddress");
+                       // $btn.attr("disabled", false); // buton aktif olsun
+                        $("#btnAddAddress").attr("disabled", false); //buton pasif olsun.
 
                     },
                     error: function (err) {
