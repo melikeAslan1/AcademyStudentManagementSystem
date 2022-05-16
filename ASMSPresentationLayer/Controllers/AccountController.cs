@@ -149,7 +149,7 @@ namespace ASMSPresentationLayer.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
-        {
+        { 
             try
             {
                 if (!ModelState.IsValid)

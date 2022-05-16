@@ -16,7 +16,6 @@ namespace ASMSEntityLayer.ViewModels
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public bool IsDeleted { get; set; }
 
-        [Required(ErrorMessage ="User Bilgisi Gereklidir!")]
         public string UserId { get; set; }
         [Required(ErrorMessage = "Adres başlığı Gereklidir!")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Adres başlığı en az 2 en çok 50 karakter aralığında olmalıdır!")]

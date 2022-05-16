@@ -53,7 +53,7 @@ namespace ASMSPresentationLayer.Controllers
 
 
         [HttpPost]
-        public IActionResult AddAdress(UsersAddressVM model)
+        public IActionResult AddAddress(UsersAddressVM model)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace ASMSPresentationLayer.Controllers
 
                 if (result)
                 {
-                    TempData["AddAddressSuccessMessage"]="Adresiniz başarıyla eklendi;"
+                    TempData["AddAddressSuccessMessage"] = "Adresiniz başarıyla eklendi";
                         return RedirectToAction("Index", "Address");
                 }
 

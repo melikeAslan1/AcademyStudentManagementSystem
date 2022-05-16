@@ -115,8 +115,44 @@ namespace ASMSPresentationLayer
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+                endpoints.MapAreaControllerRoute(
+                 "management",
+                 "management",
+                 "management/{controller=Admin}/{action=Index}/{id?}"
+                 );
+
+
+
+                //endpoints.MapAreaControllerRoute(
+                //    name: "management",
+                //    areaName: "management",
+                //    pattern: "{area:management}/{controller=Admin}/{action=Dashboard}/{id?}"
+                //    );
+
+
             });
+
+
+
+
             //yukarýdaki 6 satýr projemiz çalýþtýrýldýðýnda HomeController da yer alan Index.cshtml sayfasýna yönlendirme iþlemini gerçekleþtirir.
+            // ayný zamanda içine area ile ilgili kodlar da ekledik.
+
+
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //      name: "areas",
+            //      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            //    );
+            //});
+            //bunu hazýr þeyden aldým.
+
+
         }
+
     }
 }
