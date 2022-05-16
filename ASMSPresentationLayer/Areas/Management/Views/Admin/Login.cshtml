@@ -26,8 +26,19 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="/Management/Admin/Login">ASMS ADMIN</a>
+            <a href="/Management/Admin/Dashboard">ASMS ADMIN</a>
         </div>
+        @if (TempData["RegisterSuccessMessage"] != null)
+        {
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong> BİLGİ!</strong> @TempData["RegisterSuccessMessage"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        }
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
@@ -35,19 +46,15 @@
 
                 <form asp-area="management" asp-controller="Admin" asp-action="Login" method="post">
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" 
-                               asp-for="Email" placeholder="Email">
+                        <input type="email" class="form-control" asp-for="Email" placeholder="Email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
                     </div>
-
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password"
-                               asp-for="Password">
-                        
+                        <input type="password" class="form-control" asp-for="Password" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -59,14 +66,13 @@
                             <div class="icheck-primary">
                                 <input type="checkbox" id="remember" asp-for="RememberMe">
                                 <label for="remember">
-                                    Remember Me
+                                    Beni Hatırla
                                 </label>
                             </div>
                         </div>
-
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
                         </div>
                         <!-- /.col -->
                     </div>

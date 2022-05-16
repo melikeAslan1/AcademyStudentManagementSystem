@@ -93,7 +93,7 @@ namespace ASMSPresentationLayer.Areas.Management.Controllers
                     await _emailSender.SendMessage(emailToStudent);
                     TempData["RegisterSuccessMessage"] = "Sisteme kaydınız başarıyla gerçekleşti!";
 
-                    //_logger.LogInformation("Sisteme yeni bir öğrenci işleri personeli kayıt oldu.")
+                    _logger.LogInformation("Sisteme yeni bir öğrenci işleri personeli kayıt oldu. userid=" + newUser.Id);
 
                     return RedirectToAction("Login", "Admin", new { area = "Management",email=model.Email});
                  
@@ -113,7 +113,7 @@ namespace ASMSPresentationLayer.Areas.Management.Controllers
 
                 //loglanacak
 
-
+                _logger.LogError($"Management/Admin/Login hata oldu");
                 ModelState.AddModelError("", "Beklenmedik bir sorun oldu. Üye kaydı başarısız tekrar deneyiniz!");
                 return View(model);
             }
