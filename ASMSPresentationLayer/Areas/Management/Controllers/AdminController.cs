@@ -11,6 +11,7 @@ using ASMSEntityLayer.Enums;
 using ASMSBusinessLayer.ViewModels;
 using ASMSPresentationLayer.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASMSPresentationLayer.Areas.Management.Controllers
 {
@@ -95,9 +96,11 @@ namespace ASMSPresentationLayer.Areas.Management.Controllers
 
                     _logger.LogInformation("Sisteme yeni bir öğrenci işleri personeli kayıt oldu. userid=" + newUser.Id);
 
-                    return RedirectToAction("Login", "Admin", new { area = "Management",email=model.Email});
-                 
+                    //return RedirectToAction("Login", "Admin", new { area = "Management",email=model.Email});
 
+                    return RedirectToAction("Login", "Admin",
+                        new { area = nameof(Areas.Management), email = model.Email });
+                 
                 }
                 else
                 {
@@ -170,11 +173,11 @@ namespace ASMSPresentationLayer.Areas.Management.Controllers
                 }
                 if (_userManager.IsInRoleAsync(user, ASMSRoles.Coordinator.ToString()).Result)
                 {
-                    return RedirectToAction("Dashboard", "Admin", new { areas = "Management" });
+                    return RedirectToAction("Dashboard", "Admin", new { area = nameof(Areas.Management) });
                 }
                 if (_userManager.IsInRoleAsync(user, ASMSRoles.StudentAdministration.ToString()).Result)
                 {
-                    return RedirectToAction("Dashboard", "Admin");
+                    return RedirectToAction("Dashboard", "Admin", new { area = "Management" });
                 }
                 return RedirectToAction("Index", "Home");
 
@@ -185,6 +188,15 @@ namespace ASMSPresentationLayer.Areas.Management.Controllers
                 //ex loglansın
                 return View(model);
             }
+        }
+
+
+        [HttpGet]
+        [Authorize]       
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Admin", new { area = nameof(Areas.Management)});
         }
 
     }

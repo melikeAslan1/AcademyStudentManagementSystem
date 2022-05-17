@@ -112,18 +112,16 @@ namespace ASMSPresentationLayer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-
                 endpoints.MapAreaControllerRoute(
                  "management",
                  "management",
-                 "management/{controller=Admin}/{action=Index}/{id?}"
+                 "management/{controller=Admin}/{action=Login}/{id?}"
                  );
+                // Area lý Map in önde olmasý gerekiyor. Yoksa Area yý göremiyor.
 
-
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 //endpoints.MapAreaControllerRoute(
                 //    name: "management",
